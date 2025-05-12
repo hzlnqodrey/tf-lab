@@ -3,8 +3,8 @@ resource "google_compute_instance" "gce_instances" {
   # ✅
   name         = each.value
   # ✅
-  machine_type = "e2-micro"
-  zone         = "us-east1-d"
+  machine_type = var.machine_type
+  zone         = var.zone
 
   tags = ["foo", "bar"]
 
@@ -20,7 +20,11 @@ resource "google_compute_instance" "gce_instances" {
 
     # ✅
   network_interface {
-    network = "default"
+    network = var.network_name
+
+    # Ternary Operation to pick the correct subnet
+    subnetwork = each.value == "tf-instance-1" ? var.subnet_self_links[0] : var.subnet_self_links[1]
+
 
     access_config {
       // Ephemeral public IP

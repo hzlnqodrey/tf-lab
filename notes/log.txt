@@ -399,3 +399,190 @@ Terraform will perform the following actions:
     }
 
 Plan: 2 to add, 0 to change, 2 to destroy.
+
+student_03_76c6cf282a6d@cloudshell:~ (qwiklabs-gcp-04-a1f6b7f09d0c)$ cat main.tf 
+terraform {
+  required_providers {
+    google = {
+      source  = "hashicorp/google"
+      version = "~> 4.0"
+    }
+  }
+
+  backend "gcs" {
+    bucket = "tf-bucket-183666"
+    prefix = "terraform/state"
+  }
+
+}
+
+provider "google" {
+  project = var.project_id
+  region  = var.region
+  zone    = var.zone
+}
+
+module "instances_module" {
+  source = "./modules/instances"
+
+}
+
+module "storage_module" {
+  source = "./modules/storage"
+}
+student_03_76c6cf282a6d@cloudshell:~ (qwiklabs-gcp-04-a1f6b7f09d0c)$ terraform init
+
+Initializing the backend...
+Acquiring state lock. This may take a few moments...
+Do you want to copy existing state to the new backend?
+  Pre-existing state was found while migrating the previous "local" backend to the
+  newly configured "gcs" backend. No existing state was found in the newly
+  configured "gcs" backend. Do you want to copy this state to the new "gcs"
+  backend? Enter "yes" to copy and "no" to start with an empty state.
+
+  Enter a value: yes
+
+
+Successfully configured the backend "gcs"! Terraform will automatically
+use this backend unless the backend configuration changes.
+Initializing modules...
+
+Initializing provider plugins...
+- Reusing previous version of hashicorp/google from the dependency lock file
+- Using previously-installed hashicorp/google v4.85.0
+
+Terraform has been successfully initialized!
+
+You may now begin working with Terraform. Try running "terraform plan" to see
+any changes that are required for your infrastructure. All Terraform commands
+should now work.
+
+If you ever set or change modules or backend configuration for Terraform,
+rerun this command to reinitialize your working directory. If you forget, other
+commands will detect it and remind you to do so if necessary.
+
+Plan: 1 to add, 0 to change, 1 to destroy.
+
+Do you want to perform these actions?
+  Terraform will perform the actions described above.
+  Only 'yes' will be accepted to approve.
+
+  Enter a value: yes
+
+module.instances_module.google_compute_instance.gce_instances["tf-instance-3"]: Destroying... [id=projects/qwiklabs-gcp-04-a1f6b7f09d0c/zones/us-east4-b/instances/tf-instance-3]
+module.instances_module.google_compute_instance.gce_instances["tf-instance-173396"]: Creating...
+module.instances_module.google_compute_instance.gce_instances["tf-instance-3"]: Still destroying... [id=projects/qwiklabs-gcp-04-a1f6b7f09d0c/zones/us-east4-b/instances/tf-instance-3, 10s elapsed]
+module.instances_module.google_compute_instance.gce_instances["tf-instance-173396"]: Still creating... [10s elapsed]
+module.instances_module.google_compute_instance.gce_instances["tf-instance-173396"]: Creation complete after 19s [id=projects/qwiklabs-gcp-04-a1f6b7f09d0c/zones/us-east4-b/instances/tf-instance-173396]
+module.instances_module.google_compute_instance.gce_instances["tf-instance-3"]: Still destroying... [id=projects/qwiklabs-gcp-04-a1f6b7f09d0c/zones/us-east4-b/instances/tf-instance-3, 20s elapsed]
+module.instances_module.google_compute_instance.gce_instances["tf-instance-3"]: Still destroying... [id=projects/qwiklabs-gcp-04-a1f6b7f09d0c/zones/us-east4-b/instances/tf-instance-3, 30s elapsed]
+module.instances_module.google_compute_instance.gce_instances["tf-instance-3"]: Still destroying... [id=projects/qwiklabs-gcp-04-a1f6b7f09d0c/zones/us-east4-b/instances/tf-instance-3, 40s elapsed]
+module.instances_module.google_compute_instance.gce_instances["tf-instance-3"]: Still destroying... [id=projects/qwiklabs-gcp-04-a1f6b7f09d0c/zones/us-east4-b/instances/tf-instance-3, 50s elapsed]
+module.instances_module.google_compute_instance.gce_instances["tf-instance-3"]: Destruction complete after 58s
+Releasing state lock. This may take a few moments...
+
+Apply complete! Resources: 1 added, 0 changed, 1 destroyed.
+student_03_76c6cf282a6d@cloudshell:~ (qwiklabs-gcp-04-a1f6b7f09d0c)$ nano modules/instances/instances.tf 
+student_03_76c6cf282a6d@cloudshell:~ (qwiklabs-gcp-04-a1f6b7f09d0c)$ terraform init
+
+Initializing the backend...
+Initializing modules...
+
+Initializing provider plugins...
+- Reusing previous version of hashicorp/google from the dependency lock file
+- Using previously-installed hashicorp/google v4.85.0
+
+Terraform has been successfully initialized!
+
+You may now begin working with Terraform. Try running "terraform plan" to see
+any changes that are required for your infrastructure. All Terraform commands
+should now work.
+
+If you ever set or change modules or backend configuration for Terraform,
+rerun this command to reinitialize your working directory. If you forget, other
+commands will detect it and remind you to do so if necessary.
+
+
+Plan: 0 to add, 0 to change, 1 to destroy.
+
+Do you want to perform these actions?
+  Terraform will perform the actions described above.
+  Only 'yes' will be accepted to approve.
+
+  Enter a value: yes
+
+module.instances_module.google_compute_instance.gce_instances["tf-instance-173396"]: Destroying... [id=projects/qwiklabs-gcp-04-a1f6b7f09d0c/zones/us-east4-b/instances/tf-instance-173396]
+module.instances_module.google_compute_instance.gce_instances["tf-instance-173396"]: Still destroying... [id=projects/qwiklabs-gcp-04-a1f6b7f09d0c/z...s-east4-b/instances/tf-instance-173396, 10s elapsed]
+module.instances_module.google_compute_instance.gce_instances["tf-instance-173396"]: Still destroying... [id=projects/qwiklabs-gcp-04-a1f6b7f09d0c/z...s-east4-b/instances/tf-instance-173396, 20s elapsed]
+module.instances_module.google_compute_instance.gce_instances["tf-instance-173396"]: Still destroying... [id=projects/qwiklabs-gcp-04-a1f6b7f09d0c/z...s-east4-b/instances/tf-instance-173396, 30s elapsed]
+module.instances_module.google_compute_instance.gce_instances["tf-instance-173396"]: Still destroying... [id=projects/qwiklabs-gcp-04-a1f6b7f09d0c/z...s-east4-b/instances/tf-instance-173396, 40s elapsed]
+module.instances_module.google_compute_instance.gce_instances["tf-instance-173396"]: Still destroying... [id=projects/qwiklabs-gcp-04-a1f6b7f09d0c/z...s-east4-b/instances/tf-instance-173396, 50s elapsed]
+module.instances_module.google_compute_instance.gce_instances["tf-instance-173396"]: Destruction complete after 56s
+Releasing state lock. This may take a few moments...
+
+Apply complete! Resources: 0 added, 0 changed, 1 destroyed
+
+student_03_76c6cf282a6d@cloudshell:~ (qwiklabs-gcp-04-a1f6b7f09d0c)$ terraform plan
+Acquiring state lock. This may take a few moments...
+module.storage_module.google_storage_bucket.static-site: Refreshing state... [id=tf-bucket-183666]
+module.vpc.module.vpc.google_compute_network.network: Refreshing state... [id=projects/qwiklabs-gcp-04-a1f6b7f09d0c/global/networks/tf-vpc-826411]
+module.vpc.module.subnets.google_compute_subnetwork.subnetwork["us-east4/subnet-01"]: Refreshing state... [id=projects/qwiklabs-gcp-04-a1f6b7f09d0c/regions/us-east4/subnetworks/subnet-01]
+module.vpc.module.subnets.google_compute_subnetwork.subnetwork["us-east4/subnet-02"]: Refreshing state... [id=projects/qwiklabs-gcp-04-a1f6b7f09d0c/regions/us-east4/subnetworks/subnet-02]
+module.instances_module.google_compute_instance.gce_instances["tf-instance-1"]: Refreshing state... [id=projects/qwiklabs-gcp-04-a1f6b7f09d0c/zones/us-east4-b/instances/tf-instance-1]
+module.instances_module.google_compute_instance.gce_instances["tf-instance-2"]: Refreshing state... [id=projects/qwiklabs-gcp-04-a1f6b7f09d0c/zones/us-east4-b/instances/tf-instance-2]
+
+Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+  ~ update in-place
+
+Terraform will perform the following actions:
+
+  # module.instances_module.google_compute_instance.gce_instances["tf-instance-1"] will be updated in-place
+  ~ resource "google_compute_instance" "gce_instances" {
+        id                        = "projects/qwiklabs-gcp-04-a1f6b7f09d0c/zones/us-east4-b/instances/tf-instance-1"
+        name                      = "tf-instance-1"
+        tags                      = [
+            "bar",
+            "foo",
+        ]
+        # (19 unchanged attributes hidden)
+
+      ~ network_interface {
+            name                        = "nic0"
+          ~ network                     = "https://www.googleapis.com/compute/v1/projects/qwiklabs-gcp-04-a1f6b7f09d0c/global/networks/default" -> "tf-vpc-826411"
+          ~ subnetwork                  = "https://www.googleapis.com/compute/v1/projects/qwiklabs-gcp-04-a1f6b7f09d0c/regions/us-east4/subnetworks/default" -> "https://www.googleapis.com/compute/v1/projects/qwiklabs-gcp-04-a1f6b7f09d0c/regions/us-east4/subnetworks/subnet-01"
+            # (5 unchanged attributes hidden)
+
+            # (1 unchanged block hidden)
+        }
+
+        # (3 unchanged blocks hidden)
+    }
+
+  # module.instances_module.google_compute_instance.gce_instances["tf-instance-2"] will be updated in-place
+  ~ resource "google_compute_instance" "gce_instances" {
+        id                        = "projects/qwiklabs-gcp-04-a1f6b7f09d0c/zones/us-east4-b/instances/tf-instance-2"
+        name                      = "tf-instance-2"
+        tags                      = [
+            "bar",
+            "foo",
+        ]
+        # (19 unchanged attributes hidden)
+
+      ~ network_interface {
+            name                        = "nic0"
+          ~ network                     = "https://www.googleapis.com/compute/v1/projects/qwiklabs-gcp-04-a1f6b7f09d0c/global/networks/default" -> "tf-vpc-826411"
+          ~ subnetwork                  = "https://www.googleapis.com/compute/v1/projects/qwiklabs-gcp-04-a1f6b7f09d0c/regions/us-east4/subnetworks/default" -> "https://www.googleapis.com/compute/v1/projects/qwiklabs-gcp-04-a1f6b7f09d0c/regions/us-east4/subnetworks/subnet-02"
+            # (5 unchanged attributes hidden)
+
+            # (1 unchanged block hidden)
+        }
+
+        # (3 unchanged blocks hidden)
+    }
+
+Plan: 0 to add, 2 to change, 0 to destroy.
+
+─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+Note: You didn't use the -out option to save this plan, so Terraform can't guarantee to take exactly these actions if you run "terraform apply" now.
+student_03_76c6cf282a6d@cloudshell:~ (qwiklabs-gcp-04-a1f6b7f09d0c)$ 

@@ -1,6 +1,6 @@
 resource "google_storage_bucket" "static-site" {
-  name          = "image-store.com"
-  location      = "EU"
+  name          = var.name
+  location      = "US"
   force_destroy = true
 
   uniform_bucket_level_access = true

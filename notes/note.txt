@@ -11,18 +11,11 @@ modules/
     ├── outputs.tf
     └── variables.tf
 
-qwiklabs-gcp-00-be900804ba79
-us-east1
-us-east1-d
+qwiklabs-gcp-04-a1f6b7f09d0c
+us-east4
+us-east4-b
 
-Basic information
-Name
-tf-instance-1
-Instance Id
-8200377324693901409
-
-Basic information
-Name
-tf-instance-2
-Instance Id
-3890323706958598241
+Instances can be imported using any of these accepted formats:
+projects/{{project}}/zones/{{zone}}/instances/{{name}}
+{{project}}/{{zone}}/{{name}}
+{{name}}

@@ -32,9 +32,9 @@ terraform import 'module.instances_module.google_compute_instance.gce_instances'
 terraform import 'module.instances_module.google_compute_instance.gce_instances' 3890323706958598241
 
 ✅
-* terraform import 'module.instances_module.google_compute_instance.gce_instances["tf-instance-1"]' qwiklabs-gcp-00-be900804ba79/us-east1-d/tf-instance-1
+* terraform import 'module.instances_module.google_compute_instance.gce_instances["tf-instance-1"]' qwiklabs-gcp-04-a1f6b7f09d0c/us-east4-b/tf-instance-1
 ✅
-* terraform import 'module.instances_module.google_compute_instance.gce_instances["tf-instance-2"]' qwiklabs-gcp-00-be900804ba79/us-east1-d/tf-instance-2
+* terraform import 'module.instances_module.google_compute_instance.gce_instances["tf-instance-2"]' qwiklabs-gcp-04-a1f6b7f09d0c/us-east4-b/tf-instance-2
 
 * terraform show
 
@@ -60,4 +60,37 @@ Configure this storage bucket as the remote backend inside the main.tf file. Be 
 
 If you've written the configuration correctly, upon init, Terraform will ask whether you want to copy the existing state data to the new backend. Type yes at the prompt.
 
-[Answer:
+[Answer]:
+
+4.1] add the code (in the link) to the file
+
+# if tf is < 4.0 ver
+* terraform init -upgrade
+
+go on:
+* terraform init -migrate-state
+
+* terraform refresh
+* terraform show
+
+
+5.] Updated machine type and add 1 more vm (third vm)
+
+5.1] Delete the third vm
+
+6.]
+Task 6. Use a module from the Registry
+
+In the Terraform Registry, browse to the Network Module.
+https://registry.terraform.io/modules/terraform-google-modules/network/google/10.0.0
+
+Add this module to your main.tf file. Use the following configurations:
+
+Use version 10.0.0 (different versions might cause compatibility errors).
+Name the VPC tf-vpc-826411, and use a global routing mode.
+Specify 2 subnets in the us-east4 region, and name them subnet-01 and subnet-02. For the subnets arguments, you just need the Name, IP, and Region.
+Use the IP 10.10.10.0/24 for subnet-01, and 10.10.20.0/24 for subnet-02.
+You do not need any secondary ranges or routes associated with this VPC, so you can omit them from the configuration.
+Once you've written the module configuration, initialize Terraform and run an apply to create the networks.
+
+Next, navigate to the instances.tf file and update the configuration resources to connect tf-instance-1 to subnet-01 and tf-instance-2 to subnet-02.
