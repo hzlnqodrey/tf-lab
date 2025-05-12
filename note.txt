@@ -1,0 +1,28 @@
+Folders structure:
+main.tf
+variables.tf
+modules/
+└── instances
+    ├── instances.tf
+    ├── outputs.tf
+    └── variables.tf
+└── storage
+    ├── storage.tf
+    ├── outputs.tf
+    └── variables.tf
+
+qwiklabs-gcp-00-be900804ba79
+us-east1
+us-east1-d
+
+Basic information
+Name
+tf-instance-1
+Instance Id
+8200377324693901409
+
+Basic information
+Name
+tf-instance-2
+Instance Id
+3890323706958598241

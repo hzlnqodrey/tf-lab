@@ -1,0 +1,63 @@
+1.] Fill the files
+2.] 
+* terraform init
+
+===
+
+3.] Import structure
+
+In the Google Cloud Console, on the Navigation menu, click Compute Engine > VM Instances. Two instances named tf-instance-1 and tf-instance-2 have already been created for you.
+Note: by clicking on one of the instances, you can find its Instance ID, boot disk image, and machine type. These are all necessary for writing the configurations correctly and importing them into Terraform.
+
+3.1] First, add the module reference into the main.tf file then re-initialize Terraform.
+
+3.2] Next, write the resource configurations in the instances.tf file to match the pre-existing instances.
+Name your instances tf-instance-1 and tf-instance-2.
+For the purposes of this lab, the resource configuration should be as minimal as possible. To accomplish this, you will only need to include the following additional arguments in your configuration: machine_type, boot_disk, network_interface, metadata_startup_script, and allow_stopping_for_update. For the last two arguments, use the following configuration as this will ensure you won't need to recreate it:
+
+[
+metadata_startup_script = <<-EOT
+        #!/bin/bash
+    EOT
+allow_stopping_for_update = true
+]
+
+
+Once you have written the resource configurations within the module, use the terraform import command to import them into your instances module.
+Apply your changes. Note that since you did not fill out all of the arguments in the entire configuration, the apply will update the instances in-place. This is fine for lab purposes, but in a production environment, you should make sure to fill out all of the arguments correctly before importing.
+
+* terraform import module.instances_module.google_compute_instance.gce_instances 8200377324693901409
+
+terraform import 'module.instances_module.google_compute_instance.gce_instances' 8200377324693901409
+terraform import 'module.instances_module.google_compute_instance.gce_instances' 3890323706958598241
+
+✅
+* terraform import 'module.instances_module.google_compute_instance.gce_instances["tf-instance-1"]' qwiklabs-gcp-00-be900804ba79/us-east1-d/tf-instance-1
+✅
+* terraform import 'module.instances_module.google_compute_instance.gce_instances["tf-instance-2"]' qwiklabs-gcp-00-be900804ba79/us-east1-d/tf-instance-2
+
+* terraform show
+
+* terraform state list
+
+* terraform plan
+
+* terraform apply
+
+===
+
+4.] Configure a remote backend
+
+Create a Cloud Storage bucket resource inside the storage module. For the bucket name, use tf-bucket-897646. For the rest of the arguments, you can simply use:
+
+location = "US"
+force_destroy = true
+uniform_bucket_level_access = true
+Note: You can optionally add output values inside of the outputs.tf file.
+Add the module reference to the main.tf file. Initialize the module and apply the changes to create the bucket using Terraform.
+
+Configure this storage bucket as the remote backend inside the main.tf file. Be sure to use the prefix terraform/state so it can be graded successfully.
+
+If you've written the configuration correctly, upon init, Terraform will ask whether you want to copy the existing state data to the new backend. Type yes at the prompt.
+
+[Answer:
